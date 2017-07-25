@@ -46,7 +46,13 @@ def index():
 @app.route('/attendees', methods=['GET'])
 def all_attendees():
     attendees = Attendee.query.all()
-    return jsonify({'attendees': [attendee.to_dict() for attendee in attendees]})
+    return jsonify({'attendees': [a.to_dict() for a in attendees]})
+
+
+@app.route('/attendees/<int:attendee_id>', methods=['GET'])
+def get_attendee(attendee_id):
+    attendee = Attendee.query.get(attendee_id)
+    return jsonify({'attendee': attendee.to_dict()})
 
 
 @app.route('/attendees', methods=['POST'])
